@@ -95,7 +95,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../matrix_animation.gif');
+    background-image: url('../images/matrix_animation.gif');
     background-repeat: repeat;
     background-size: 300px 300px;
     animation: matrix-animation 1s steps(10) infinite;
