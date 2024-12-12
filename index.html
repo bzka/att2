@@ -1,343 +1,223 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>bz</title>
-    <style>
-        *
-        {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+import React, { useState, useEffect, useRef } from 'react';
+import { Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, PieChart, Pie } from 'recharts';
 
-        body
-        {
-            background-color: #0d0d0d;
-            color: #cccccc;
-            font-family: 'Courier New', Courier, monospace;
-            position: relative;
-            min-height: 100vh;
-        }
+const TailwindPortfolio = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
-        .matrix
-        {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            pointer-events: none;
-            z-index: -1;
-        }
+  // Skill data for radar chart
+  const skillData = [
+    { subject: 'C++', A: 95 },
+    { subject: 'Python', A: 90 },
+    { subject: 'Security', A: 95 },
+    { subject: 'System Design', A: 85 },
+    { subject: 'Networking', A: 88 },
+    { subject: 'Algorithms', A: 92 },
+  ];
 
-        .matrix-canvas
-        {
-            width: 100%;
-            height: 100%;
-        }
+  // Project distribution data for pie chart
+  const projectData = [
+    { name: 'Security Tools', value: 40, fill: '#10B981' },
+    { name: 'System Development', value: 30, fill: '#3B82F6' },
+    { name: 'Automation', value: 20, fill: '#EC4899' },
+    { name: 'Research', value: 10, fill: '#F59E0B' },
+  ];
 
-        header
-        {
-            text-align: center;
-            padding: 20px 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-        }
+  const projects = [
+    {
+      title: "Secure File System",
+      description: "Military-grade encrypted file system implementation in C++",
+      tags: ["C++", "Security", "Encryption"],
+      icon: "🔒"
+    },
+    {
+      title: "Network Scanner",
+      description: "Advanced penetration testing tool for network vulnerability assessment",
+      tags: ["Python", "Security", "Networking"],
+      icon: "🔍"
+    },
+    {
+      title: "Data Pipeline",
+      description: "High-performance data processing system with real-time analytics",
+      tags: ["C++", "Data", "Performance"],
+      icon: "⚡"
+    }
+  ];
 
-        header h1
-        {
-            font-size: 3em;
-            animation: glitch 1.5s infinite;
-            color: #cccccc;
-            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00;
-        }
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
-        @keyframes glitch
-        {
-            0%
-            {
-                text-shadow: 0 0 5px #cccccc, 0 0 10px #cccccc, 0 0 20px #cccccc;
-                transform: translate(0);
-            }
-            20%
-            {
-                text-shadow: 2px 2px 5px #ff0000, -2px -2px 10px #cccccc, 2px -2px 20px #0000ff;
-                transform: translate(-2px, 2px);
-            }
-            40%
-            {
-                text-shadow: -2px -2px 5px #0000ff, 2px 2px 10px #ff0000, -2px 2px 20px #cccccc;
-                transform: translate(2px, -2px);
-            }
-            60%
-            {
-                text-shadow: 2px 2px 5px #cccccc, -2px -2px 10px #0000ff, 2px -2px 20px #ff0000;
-                transform: translate(-2px, 2px);
-            }
-            80%
-            {
-                text-shadow: -2px -2px 5px #ff0000, 2px 2px 10px #cccccc, -2px 2px 20px #0000ff;
-                transform: translate(2px, -2px);
-            }
-            100%
-            {
-                text-shadow: 0 0 5px #cccccc, 0 0 10px #cccccc, 0 0 20px #cccccc;
-                transform: translate(0);
-            }
-        }
-
-        main
-        {
-            padding: 20px;
-        }
-
-        .content
-        {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        article
-        {
-            margin-bottom: 40px;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s forwards;
-            background-color: rgba(0, 0, 0, 0.85);
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        article:nth-child(even)
-        {
-            animation-delay: 0.5s;
-        }
-
-        @keyframes fadeInUp
-        {
-            to
-            {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        h2, h3
-        {
-            margin-bottom: 15px;
-            text-decoration: underline;
-            color: #cccccc;
-        }
-
-        p
-        {
-            line-height: 1.6;
-            font-size: 1.1em;
-            color: #dddddd;
-        }
-
-        ul
-        {
-            list-style-type: square;
-            margin-left: 20px;
-            color: #dddddd;
-        }
-
-        .button-group
-        {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .ctk-button
-        {
-            background-color: #0a0a0a;
-            color: #00ff00;
-            border: 2px solid #00ff00;
-            padding: 10px 20px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            border-radius: 5px;
-        }
-
-        .ctk-button::after
-        {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 255, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .ctk-button:hover
-        {
-            background-color: #00ff00;
-            color: #0a0a0a;
-            border-color: #00ff00;
-        }
-
-        .ctk-button:hover::after
-        {
-            left: 0;
-        }
-
-        footer
-        {
-            text-align: center;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            position: absolute;
-            width: 100%;
-            bottom: 0;
-            z-index: 1;
-        }
-
-        footer p
-        {
-            font-size: 0.9em;
-            color: #cccccc;
-        }
-
-        @media (max-width: 768px)
-        {
-            header h1
-            {
-                font-size: 2em;
-            }
-
-            .ctk-button
-            {
-                padding: 8px 16px;
-                font-size: 0.9em;
-            }
-
-            h2, h3
-            {
-                font-size: 1.5em;
-            }
-
-            p
-            {
-                font-size: 1em;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="matrix">
-        <canvas class="matrix-canvas"></canvas>
-    </div>
-
-    <header>
-        <h1>./BunZoot</h1>
-    </header>
-
-    <main>
-        <div class="content">
-            <section class="content">
-                <article>
-                    <h2>About Bz</h2>
-                    <p>I am Bunzoot, a Python and C++ coder, patiently learning HTML and CSS alongside. If you need me, press error 404 for a way to get in touch. Farewell for now.</p>
-                </article>
-
-                <article>
-                    <h3>Future Plans</h3>
-                    <p>So, I’m planning to use this site to share updates about my projects. In the upcoming weeks, I’ll move the site to my domain and enhance it for a better user experience. I'll also share updates on my game development. Stay tuned for more exciting updates soon!</p>
-                </article>
-            </section>
-
-            <section class="additional-content">
-                <article>
-                    <h2>Contact Me</h2>
-                    <p>Wanna get in touch or collaborate on a project? Hit the button below and let's connect!</p>
-                    <div class="button-group">
-                        <button class="ctk-button" onclick="window.location.href='https://github.com/Bunzoot'">GitHub</button>
-                        <button class="ctk-button" onclick="window.location.href='https://linkedin.com/in/Bunzoot'">LinkedIn</button>
-                        <button class="ctk-button" onclick="window.location.href='mailto:bunzoot@example.com'">Email</button>
-                    </div>
-                </article>
-
-                <article>
-                    <h3>Projects</h3>
-                    <p>I've been working on several exciting projects recently, including a chatbot using Python, a real-time strategy game in C++, and exploring the depths of web development with HTML, CSS, and JavaScript. Each project is a step towards honing my skills and creating something impactful.</p>
-                </article>
-
-                <article>
-                    <h2>Skills</h2>
-                    <p>My skill set includes:</p>
-                    <ul>
-                        <li>Python Programming</li>
-                        <li>C++ Development</li>
-                        <li>Web Development (HTML, CSS, JavaScript)</li>
-                        <li>Data Structures and Algorithms</li>
-                        <li>Game Development</li>
-                    </ul>
-                </article>
-            </section>
+  return (
+    <div className="min-h-screen bg-gray-900 text-gray-100">
+      {/* Navigation */}
+      <nav className="fixed w-full bg-gray-900 bg-opacity-95 backdrop-blur-sm z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <span className="text-2xl font-bold text-emerald-400">BUNZOOT</span>
+            <div className="hidden md:flex space-x-8">
+              <a href="#home" className="hover:text-emerald-400 transition-colors">Home</a>
+              <a href="#skills" className="hover:text-emerald-400 transition-colors">Skills</a>
+              <a href="#projects" className="hover:text-emerald-400 transition-colors">Projects</a>
+              <a href="#stats" className="hover:text-emerald-400 transition-colors">Stats</a>
+            </div>
+          </div>
         </div>
-    </main>
+      </nav>
 
-    <footer>
-        <p>&copy; 2025 Bunzoot</p>
-    </footer>
+      {/* Hero Section */}
+      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          {/* Matrix rain effect would be implemented in a separate component */}
+        </div>
+        <div className="relative z-10 text-center px-4">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
+            Security Engineer & Developer
+          </h1>
+          <p className="text-xl md:text-2xl text-emerald-400 mb-8 animate-fade-in-delayed">
+            Crafting Secure Solutions with C++ & Python
+          </p>
+          <div className="flex justify-center space-x-4">
+            <a href="#projects" className="bg-emerald-500 text-white px-6 py-3 rounded-lg hover:bg-emerald-600 transition-colors">
+              View Projects
+            </a>
+            <a href="#contact" className="border border-emerald-500 text-emerald-500 px-6 py-3 rounded-lg hover:bg-emerald-500 hover:text-white transition-colors">
+              Contact Me
+            </a>
+          </div>
+        </div>
+      </section>
 
-    <script>
-        const canvas = document.querySelector('.matrix-canvas');
-        const ctx = canvas.getContext('2d');
+      {/* Skills Section */}
+      <section id="skills" className="py-20 bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold mb-12 text-center">Technical Expertise</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: "🔒",
+                title: "Security Engineering",
+                description: "Specialized in penetration testing and secure system design"
+              },
+              {
+                icon: "⚡",
+                title: "High-Performance C++",
+                description: "Development of efficient, scalable systems"
+              },
+              {
+                icon: "🐍",
+                title: "Python Development",
+                description: "Automation and security tool development"
+              }
+            ].map((skill, index) => (
+              <div key={index} className="bg-gray-700 rounded-lg p-6 transform hover:-translate-y-2 transition-transform">
+                <div className="text-4xl mb-4">{skill.icon}</div>
+                <h3 className="text-xl font-bold mb-2">{skill.title}</h3>
+                <p className="text-gray-300">{skill.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initialize();
-        });
+      {/* Stats Section */}
+      <section id="stats" className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold mb-12 text-center">Skills Analysis</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-gray-800 p-6 rounded-lg h-96">
+              <ResponsiveContainer width="100%" height="100%">
+                <RadarChart data={skillData}>
+                  <PolarGrid stroke="#4B5563" />
+                  <PolarAngleAxis dataKey="subject" stroke="#E5E7EB" />
+                  <PolarRadiusAxis stroke="#4B5563" />
+                  <Radar
+                    name="Skills"
+                    dataKey="A"
+                    stroke="#10B981"
+                    fill="#10B981"
+                    fillOpacity={0.2}
+                  />
+                </RadarChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="bg-gray-800 p-6 rounded-lg h-96">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={projectData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    label
+                  />
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
+      {/* Projects Section */}
+      <section id="projects" className="py-20 bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold mb-12 text-center">Featured Projects</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <div key={index} className="bg-gray-700 rounded-lg p-6 transform hover:-translate-y-2 transition-transform">
+                <div className="text-4xl mb-4">{project.icon}</div>
+                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                <p className="text-gray-300 mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag, tagIndex) => (
+                    <span key={tagIndex} className="bg-gray-600 px-3 py-1 rounded-full text-sm">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%";
+      {/* Contact Section */}
+      <section id="contact" className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold mb-12">Get In Touch</h2>
+          <div className="flex justify-center space-x-8">
+            <a href="#" className="text-gray-300 hover:text-emerald-400 transition-colors">
+              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+              </svg>
+            </a>
+            <a href="#" className="text-gray-300 hover:text-emerald-400 transition-colors">
+              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
+              </svg>
+            </a>
+            <a href="#" className="text-gray-300 hover:text-emerald-400 transition-colors">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
 
-        const fontSize = 12;
-        const columns = Math.floor(canvas.width / fontSize);
-        let drops = Array(columns).fill(1);
+      {/* Footer */}
+      <footer className="bg-gray-800 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+          <p>© 2024 Bunzoot. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  );
+};
 
-        function initialize() {
-            drops = Array(Math.floor(canvas.width / fontSize)).fill(1);
-        }
-
-        function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = "#00ff00";
-            ctx.font = `${fontSize}px monospace`;
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = matrix.charAt(Math.floor(Math.random() * matrix.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-
-                drops[i]++;
-            }
-        }
-
-        setInterval(draw, 33);
-    </script>
-</body>
-</html>
+export default TailwindPortfolio;
