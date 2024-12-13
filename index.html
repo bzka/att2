@@ -3,494 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bunzoot Store - Premium Digital Services</title>
+    <title>Bunzooties - Premium Digital Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-dark: #1a1a1a;
-            --secondary-dark: #2d2d2d;
-            --accent-color: #7c4dff;
-            --text-primary: #ffffff;
-            --text-secondary: #b3b3b3;
-            --success-color: #4CAF50;
+            --bg-primary: #121212;
+            --bg-secondary: #1E1E1E;
+            --text-primary: #E0E0E0;
+            --text-secondary: #A0A0A0;
+            --accent-color: #6B46C1;
+            --gradient-primary: linear-gradient(45deg, #6B46C1, #ED64A6, #4FD1C5);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--primary-dark);
-            background-image: 
-                radial-gradient(circle at 100% 100%, rgba(124, 77, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 0% 0%, rgba(124, 77, 255, 0.05) 0%, transparent 50%),
-                linear-gradient(rgba(26, 26, 26, 0.9) 2px, transparent 2px),
-                linear-gradient(90deg, rgba(26, 26, 26, 0.9) 2px, transparent 2px);
-            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
-            background-position: 0 0, 0 0, -1px -1px, -1px -1px;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Enhanced Header & Navigation */
-        header {
-            background-color: rgba(45, 45, 45, 0.98);
-            padding: 1rem 0;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+        /* Navigation Styles */
+        .navbar {
             position: fixed;
-            width: 100%;
             top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
+            left: 0;
+            width: 100%;
+            background-color: rgba(18, 18, 18, 0.9);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: slideDown 0.5s ease;
         }
 
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        .navbar-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent-color);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--accent-color);
-            transform: translateX(-100%);
+            background: linear-gradient(45deg, #6B46C1, #ED64A6, #4FD1C5);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: 2rem;
+            font-weight: 700;
+            animation: gradientFlow 5s ease infinite;
+            cursor: pointer;
             transition: transform 0.3s ease;
         }
 
-        .logo:hover::after {
-            transform: translateX(0);
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            align-items: center;
+            gap: 25px;
         }
 
         .nav-links a {
-            color: var(--text-primary);
             text-decoration: none;
-            transition: all 0.3s ease;
+            color: var(--text-primary);
+            font-weight: 500;
             position: relative;
-            padding: 0.5rem 0;
+            transition: color 0.3s ease;
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            width: 0;
             height: 2px;
+            bottom: -5px;
+            left: 0;
             background-color: var(--accent-color);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
         }
 
         .nav-links a:hover::after {
-            transform: scaleX(1);
+            width: 100%;
         }
 
-        .mobile-menu-btn {
-            display: none;
-            background: none;
+        .cart-btn {
+            background: var(--gradient-primary);
+            color: white;
             border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
+            padding: 10px 20px;
+            border-radius: 30px;
             cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        /* Enhanced Main Content */
-        main {
-            margin-top: 80px;
-            padding: 2rem;
-            max-width: 1200px;
+        .cart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #121212, #1E1E1E, #6B46C1);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            padding: 0 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #6B46C1, #ED64A6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .hero-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .hero {
-            text-align: center;
-            padding: 4rem 0;
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--text-primary), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientFlow 8s linear infinite;
-        }
-
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .hero p {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent-color);
+        .hero-cta {
+            background: var(--gradient-primary);
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 5px;
             text-decoration: none;
-            transition: all 0.3s ease;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
             position: relative;
             overflow: hidden;
         }
 
-        .cta-button::before {
+        .hero-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .hero-cta::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: 0.5s;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.6s;
         }
 
-        .cta-button:hover::before {
+        .hero-cta:hover::before {
             left: 100%;
         }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(124, 77, 255, 0.4);
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 4rem 0;
-        }
-
-        .feature-card {
-            background-color: var(--secondary-dark);
-            background-image: 
-                linear-gradient(45deg, rgba(124, 77, 255, 0.05) 25%, transparent 25%),
-                linear-gradient(-45deg, rgba(124, 77, 255, 0.05) 25%, transparent 25%);
-            background-size: 3rem 3rem;
-            padding: 2rem;
-            border-radius: 10px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card {
-    min-height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid rgba(124, 77, 255, 0.1);
-}
-
-.feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(124, 77, 255, 0.1), transparent);
-            transform: translateX(-100%);
-            transition: 0.5s;
-        }
-
-        .feature-card:hover::before {
-            transform: translateX(100%);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .feature-card h3 {
-            margin: 1rem 0;
-            color: var(--accent-color);
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-
-        .add-to-cart-btn {
-            background-color: var(--accent-color);
-            width: 80%;
-            margin: 0 auto;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(124, 77, 255, 0.2);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .add-to-cart-btn:hover {
-            background-color: #6b42e0;
-            transform: translateY(-2px);
-        }
-
-        .add-to-cart-btn:active {
-            transform: translateY(0);
-        }
-
-        .add-to-cart-btn.added {
-            background-color: var(--success-color);
-        }
-
-        /* Enhanced Footer */
-        footer {
-            background-color: var(--secondary-dark);
-            padding: 2rem;
-            margin-top: 4rem;
-            text-align: center;
-        }
-
-        .footer-content {
+        /* Products Section */
+        .products-section {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 100px 20px;
         }
 
-        .footer-links {
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            background: linear-gradient(45deg, #6B46C1, #ED64A6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--bg-secondary);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+            border-color: var(--accent-color);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-details {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .product-description {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .product-footer {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(45deg, #6B46C1, #ED64A6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .product-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 600;
+        }
+
+        .product-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: rgba(0,0,0,0.7);
+            padding: 50px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
         }
 
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.3s ease;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         .footer-links a:hover {
             color: var(--accent-color);
+            transform: translateX(5px);
         }
 
-        /* Mobile Responsiveness */
+        .social-links {
+            display: flex;
+            gap: 20px;
+            font-size: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        /* Animations */
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
             }
 
             .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--secondary-dark);
-                padding: 1rem;
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
+                display: none; /* Consider adding a mobile menu */
             }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .footer-links {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--success-color);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 5px;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
         }
     </style>
 </head>
 <body>
-    <div id="toast" class="toast">Item added to cart!</div>
-    <header>
-        <nav>
-            <a href="/" class="logo">BUNZOOT</a>
-            <button class="mobile-menu-btn">☰</button>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">bunzooties</div>
             <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/streaming.html">Streaming</a>
-                <a href="/music.html">Music</a>
-                <a href="/giftcards.html">Gift Cards</a>
-                <a href="/contact.html">Contact</a>
+                <a href="#">Home</a>
+                <a href="#">Shop</a>
+                <a href="#">About</a>
+                <button class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i> Cart (0)
+                </button>
             </div>
-        </nav>
-    </header>
-
-    <main>
-        <section class="hero">
-            <h1>Premium Digital Services at Great Prices</h1>
-            <p>Access your favorite streaming platforms, music services, and gift cards through our authorized reseller platform. We provide legitimate accounts with competitive pricing and excellent customer support.</p>
-            <a href="/streaming.html" class="cta-button">Explore Services</a>
-        </section>
-
-        <section class="features">
-            <div class="feature-card">
-                <h3>Streaming Services</h3>
-                <p>Get access to premium streaming platforms with our authorized accounts. Enjoy movies, shows, and more on your favorite services.</p>
-                <button class="add-to-cart-btn" onclick="addToCart('streaming')">Add to Cart - $9.99</button>
-            </div>
-            <div class="feature-card">
-                <h3>Music Platforms</h3>
-                <p>Listen to millions of songs with our premium music service accounts. High-quality audio streaming at your fingertips.</p>
-                <button class="add-to-cart-btn" onclick="addToCart('music')">Add to Cart - $7.99</button>
-            </div>
-            <div class="feature-card">
-                <h3>Gift Cards</h3>
-                <p>Purchase digital gift cards for various platforms and services. Perfect for gifting or personal use.</p>
-                <button class="add-to-cart-btn" onclick="addToCart('giftcard')">Add to Cart - $25.00</button>
-            </div>
-        </section>
-
-        <section class="features">
-            <div class="feature-card">
-                <h3>24/7 Support</h3>
-                <p>Our dedicated customer service team is always ready to assist you with any questions or concerns. We provide comprehensive support for all our services.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Secure Payments</h3>
-                <p>Shop with confidence using our encrypted payment processing system. We support multiple payment methods.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Instant Delivery</h3>
-                <p>Receive your digital products immediately after purchase. No waiting, start enjoying your services right away.</p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="/about.html">About Us</a>
-                <a href="/terms.html">Terms of Service</a>
-                <a href="/privacy.html">Privacy Policy</a>
-                <a href="/faq.html">FAQ</a>
-                <a href="/support.html">Support</a>
-            </div>
-            <p>&copy; 2024 Bunzoot Store. All rights reserved.</p>
         </div>
-    </footer>
+    </nav>
 
-    <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Bz Marketplace</h1>
+            <p class="hero-subtitle">Give a man a fish and you feed him for a day, Teach a man how to fish, he will eat for a lifetime.</p>
+            <a href="#products" class="hero-cta">Explore Products</a>
+        </div>
+    </section>
 
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+        <h2 class="section-title">Our Top Products</h2>
+        <div class="products-grid">
+            <!-- Product 1: Amazon Gift Cards -->
+            <div class="product-card">
+                <img src="/api/placeholder/400/500" alt="Amazon Gift Cards" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">500$ Amazon Gift Cards</h3>
+                    <p class="product-description">Instant digital Amazon gift cards at unbeatable prices.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$79.99</span>
+                        <a href="page2.html" class="product-btn">Buy Now</a>
+                    </div>
+                </div>
+            </div>
 
-        // Cart functionality
-        function addToCart(item) {
-            const btn = event.target;
-            const toast = document.getElementById('toast');
+            <!-- Product 2: Steam Wallet Codes -->
+            <div class="product-card">
+                <img src="/api/placeholder/400/500" alt="Steam Wallet Codes" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">Steam Wallet Codes</h3>
+                    <p class="product-description">Top up your Steam wallet instantly. Game on!</p>
+                    <div class="product-footer">
+                        <span class="product-price">$49.99</span>
+                        <a href="page2.html" class="product-btn">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3: Spotify Premium -->
+            <div class="product-card">
+                <img src="/api/placeholder/400/500" alt="Spotify Premium" class="product-image">
+                <div class="product-details">
+                    <h3 class
+                    <h3 class="product-title">Spotify Premium</h3>
+                    <p class="product-description">Lifetime subscription at an affordable rate!</p>
+                    <div class="product-footer">
+                        <span class="product-price">$15.99</span>
+                        <a href="page2.html" class="product-btn">BuyNow</a>
+                    </div>
+                </div>
+            </div>
             
-            // Add success state to button
-            btn.classList.add('added');
-            btn.textContent = 'Added to Cart ✓';
+            <div class="product-card">
+                <img src="/api/placeholder/400/500" alt="Netflix Subscription" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-title">Netflix Premium Account</h3>
+                    <p class="product-description">Enjoy unlimited streaming with a premium Netflix account.</p>
+                    <div class="product-footer">
+                        <span class="product-price">$29.99</span>
+                        <a href="page2.html" class="product-btn">Buy Now</a>
+                    </div>
+                </div>
+            </div>
             
-            // Show toast notification
-            toast.classList.add('show');
-            
-            // Reset button and hide toast after delay
-            setTimeout(() => {
-                toast.classList.remove('show');
-                btn.classList.remove('added');
-                btn.textContent = btn.textContent.replace(' ✓', '');
-                
-                // Redirect to page2.html
-                window.location.href = 'page2.html';
-            }, 1500);
-        }
-
-        // Intersection Observer for feature cards animation
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.feature-card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            observer.observe(card);
