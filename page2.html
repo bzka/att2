@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bunzoot Store - Service Information</title>
+    <style>
+        /* [Previous CSS Variables and Reset] */
+        :root {
+            --primary-dark: #1a1a1a;
+            --secondary-dark: #2d2d2d;
+            --accent-color: #7c4dff;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --success-color: #4CAF50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-dark);
+            background-image: 
+                radial-gradient(circle at 100% 100%, rgba(124, 77, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 0% 0%, rgba(124, 77, 255, 0.05) 0%, transparent 50%),
+                linear-gradient(rgba(26, 26, 26, 0.9) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(26, 26, 26, 0.9) 2px, transparent 2px);
+            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+            background-position: 0 0, 0 0, -1px -1px, -1px -1px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Header Styles [Same as index.html] */
+        header {
+            background-color: rgba(45, 45, 45, 0.98);
+            padding: 1rem 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Main Content Styles */
+        main {
+            margin-top: 80px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .info-section {
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 5px rgba(124, 77, 255, 0.2); }
+            50% { box-shadow: 0 0 15px rgba(124, 77, 255, 0.4); }
+            100% { box-shadow: 0 0 5px rgba(124, 77, 255, 0.2); }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-section h2 {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .info-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), transparent);
+        }
+
+        .info-card {
+            background-color: var(--secondary-dark);
+            background-image: 
+                linear-gradient(45deg, rgba(124, 77, 255, 0.03) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(124, 77, 255, 0.03) 25%, transparent 25%);
+            background-size: 3rem 3rem;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(124, 77, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background: var(--secondary-dark);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(124, 77, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .platform-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .platform-link:hover {
+            color: var(--accent-color);
+        }
+
+        .guarantee-badge {
+            background: linear-gradient(45deg, var(--secondary-dark), rgba(124, 77, 255, 0.1));
+            animation: glowPulse 2s infinite;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 1rem;
+            border: 1px solid rgba(124, 77, 255, 0.2);
+        }
+
+        /* Footer Styles [Same as index.html] */
+        footer {
+            background-color: var(--secondary-dark);
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .info-section h2 {
+                font-size: 2rem;
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo">BUNZOOT</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="info-section">
+            <h2>Contact & Purchase Information</h2>
+            <div class="info-card">
+                <h3>How to Purchase</h3>
+                <p>To ensure the best service and support, all purchases are handled directly through our verified platforms. Reach out to us on Discord or any of our other social platforms to get started.</p>
+                <div class="contact-methods">
+                    <div class="contact-card">
+                        <h3>Discord</h3>
+                        <p>Our primary platform for sales and support</p>
+                        <a href="#" class="platform-link">@bunzoot</a>
+                    </div>
+                    <div class="contact-card">
+                        <h3>Response Time</h3>
+                        <p>Usually within 30 minutes</p>
+                        <p>24/7 Availability</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2>Our Services</h2>
+            
+            <div class="info-card">
+                <h3>Premium Music Accounts</h3>
+                <p>Enjoy unlimited access to your favorite music platforms with our premium accounts:</p>
+                <ul>
+                    <li>Lifetime access guarantee</li>
+                    <li>High-quality audio streaming</li>
+                    <li>Offline download capability</li>
+                    <li>Multi-device support</li>
+                    <li>Premium features unlocked</li>
+                </ul>
+                <div class="guarantee-badge">
+                    <strong>Lifetime Access Guaranteed</strong>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Streaming Services</h3>
+                <p>Access all your favorite shows and movies with our premium streaming accounts:</p>
+                <ul>
+                    <li>Full HD and 4K streaming available</li>
+                    <li>Multiple profile support</li>
+                    <li>Access to exclusive content</li>
+                    <li>Watch on any device</li>
+                    <li>Regular account maintenance</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>Why Choose Us?</h3>
+                <ul>
+                    <li>Instant account delivery after payment</li>
+                    <li>24/7 customer support</li>
+                    <li>Competitive pricing</li>
+                    <li>Secure transactions</li>
+                    <li>Replacement guarantee</li>
+                    <li>Long-term support</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2>Additional Information</h2>
+            <div class="info-card">
+                <h3>Payment Methods</h3>
+                <p>We accept various payment methods for your convenience:</p>
+                <ul>
+                    <li>Major Credit Cards</li>
+                    <li>PayPal</li>
+                    <li>Cryptocurrency</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/about.html">About Us</a>
+                <a href="/terms.html">Terms of Service</a>
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/faq.html">FAQ</a>
+                <a href="/support.html">Support</a>
+            </div>
+            <p>&copy; 2024 Bunzoot Store. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
