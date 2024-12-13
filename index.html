@@ -235,15 +235,29 @@
             box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
         }
 
-        .product-image {
+        .product-icon {
             width: 100%;
-            height: 300px;
-            object-fit: cover;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
             transition: var(--transition);
+            font-size: 5rem;
+            color: var(--text-secondary);
         }
 
-        .product-card:hover .product-image {
-            transform: scale(1.05);
+        .product-icon i {
+            transition: var(--transition);
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .product-card:hover .product-icon i {
+            transform: scale(1.1);
+            filter: brightness(1.2);
         }
 
         .product-details {
@@ -345,19 +359,23 @@
         <h2 class="section-title">Featured Products</h2>
         <div class="products-grid">
             <div class="product-card">
-                <img src="/api/placeholder/400/500" alt="Amazon Gift Cards" class="product-image">
+                <div class="product-icon">
+                    <i class="fab fa-amazon"></i>
+                </div>
                 <div class="product-details">
                     <h3 class="product-title">$500 Amazon Gift Cards</h3>
                     <p class="product-description">Instant digital Amazon gift cards with guaranteed validity.</p>
                     <div class="product-footer">
                         <span class="product-price">$79.99</span>
-                        <a href="#" class="product-btn">Buy Now</a>
+                        <a href="page2.html" class="product-btn">Buy Now</a>
                     </div>
                 </div>
             </div>
 
             <div class="product-card">
-                <img src="/api/placeholder/400/500" alt="Steam Wallet Codes" class="product-image">
+                <div class="product-icon">
+                    <i class="fab fa-steam"></i>
+                </div>
                 <div class="product-details">
                     <h3 class="product-title">Steam Wallet Codes</h3>
                     <p class="product-description">Instant Steam wallet codes for your gaming needs.</p>
@@ -369,7 +387,9 @@
             </div>
 
             <div class="product-card">
-                <img src="/api/placeholder/400/500" alt="Spotify Premium" class="product-image">
+                <div class="product-icon">
+                    <i class="fab fa-spotify"></i>
+                </div>
                 <div class="product-details">
                     <h3 class="product-title">Spotify Premium</h3>
                     <p class="product-description">Premium music streaming subscription at amazing rates.</p>
@@ -381,7 +401,9 @@
             </div>
 
             <div class="product-card">
-                <img src="/api/placeholder/400/500" alt="Netflix Premium" class="product-image">
+                <div class="product-icon">
+                    <i class="fas fa-play-circle"></i>
+                </div>
                 <div class="product-details">
                     <h3 class="product-title">Netflix Premium</h3>
                     <p class="product-description">Premium streaming experience with 4K Ultra HD quality.</p>
@@ -393,7 +415,9 @@
             </div>
 
             <div class="product-card">
-                <img src="/api/placeholder/400/500" alt="PlayStation Plus" class="product-image">
+                <div class="product-icon">
+                    <i class="fab fa-playstation"></i>
+                </div>
                 <div class="product-details">
                     <h3 class="product-title">PlayStation Plus</h3>
                     <p class="product-description">12-month subscription with instant delivery and premium benefits.</p>
@@ -405,7 +429,9 @@
             </div>
 
             <div class="product-card">
-                <img src="/api/placeholder/400/500" alt="Xbox Game Pass" class="product-image">
+                <div class="product-icon">
+                    <i class="fab fa-xbox"></i>
+                </div>
                 <div class="product-details">
                     <h3 class="product-title">Xbox Game Pass Ultimate</h3>
                     <p class="product-description">Access hundreds of high-quality games across platforms.</p>
